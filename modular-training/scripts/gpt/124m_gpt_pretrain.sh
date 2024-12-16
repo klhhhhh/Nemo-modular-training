@@ -1,7 +1,7 @@
-python <NeMo_ROOT_FOLDER>/examples/nlp/language_modeling/megatron_gpt_pretraining.py  \
-    --config-path=<NeMo_ROOT_FOLDER>/examples/nlp/language_modeling/conf \
+python /global/homes/k/klhhhhh/NeMo-modular-training/examples/nlp/language_modeling/megatron_gpt_pretraining.py  \
+    --config-path=/global/homes/k/klhhhhh/NeMo-modular-training/examples/nlp/language_modeling/conf \
     --config-name=megatron_gpt_config \
-    trainer.devices=1 \
+    trainer.devices=4 \
     trainer.num_nodes=1 \
     trainer.max_epochs=null \
     trainer.max_steps=300000 \
@@ -11,9 +11,11 @@ python <NeMo_ROOT_FOLDER>/examples/nlp/language_modeling/megatron_gpt_pretrainin
     trainer.limit_test_batches=50 \
     trainer.accumulate_grad_batches=1 \
     trainer.precision=16 \
+    model.transformer_engine=True \
+    model.megatron_amp_O2=False \
     model.micro_batch_size=6 \
     model.global_batch_size=192 \
-    model.tensor_model_parallel_size=1 \
+    model.tensor_model_parallel_size=4 \
     model.pipeline_model_parallel_size=1 \
     model.max_position_embeddings=1024 \
     model.encoder_seq_length=1024 \
@@ -24,9 +26,9 @@ python <NeMo_ROOT_FOLDER>/examples/nlp/language_modeling/megatron_gpt_pretrainin
     model.init_method_std=0.021 \
     model.hidden_dropout=0.1 \
     model.layernorm_epsilon=1e-5 \
-    model.tokenizer.vocab_file=gpt2-vocab.json \
-    model.tokenizer.merge_file=gpt2-merges.txt \
-    model.data.data_prefix=[1.0,hfbpe_gpt_training_data_text_document] \
+    model.tokenizer.vocab_file=/pscratch/sd/k/klhhhhh/dataset/gpt2-datasets/gpt2-vocab.json \
+    model.tokenizer.merge_file=/pscratch/sd/k/klhhhhh/dataset/gpt2-datasets/gpt2-merges.txt \
+    model.data.data_prefix=[1.0,/pscratch/sd/k/klhhhhh/dataset/nemo/wiki/hfbpe_gpt_training_data_text_document] \
     model.data.num_workers=2 \
     model.data.seq_length=1024 \
     model.data.splits_string=\'980,10,10\' \
