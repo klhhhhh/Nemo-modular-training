@@ -1,3 +1,4 @@
+export NVIDIA_PYTORCH_VERSION=24.04
 export CUDNN_PATH=/global/common/software/nersc9/cudnn/8.9.3-cuda12
 export CUDA_PATH=/global/homes/k/klhhhhh/cuda12.4
 export CPATH=/global/common/software/nersc9/cudnn/8.9.3-cuda12/include:$CPATH
