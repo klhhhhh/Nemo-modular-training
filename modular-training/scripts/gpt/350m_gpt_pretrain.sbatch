@@ -10,8 +10,9 @@
 
 export MASTER_ADDR=$(scontrol show hostnames $SLURM_NODELIST | head -n 1)
 export MASTER_PORT=6000
+export NVIDIA_PYTORCH_VERSION=24.12
 
 echo "Master Address: $MASTER_ADDR"
 echo "Master Port: $MASTER_PORT"
 
-srun --export=ALL,MASTER_ADDR=$MASTER_ADDR,MASTER_PORT=$MASTER_PORT bash /global/homes/k/klhhhhh/NeMo-modular-training/modular-training/scripts/gpt/350m_gpt_pretrain.sh
+srun --export=ALL,MASTER_ADDR=$MASTER_ADDR,MASTER_PORT=$MASTER_PORT,NVIDIA_PYTORCH_VERSION=$NVIDIA_PYTORCH_VERSION bash /global/homes/k/klhhhhh/NeMo-modular-training/modular-training/scripts/gpt/350m_gpt_pretrain.sh

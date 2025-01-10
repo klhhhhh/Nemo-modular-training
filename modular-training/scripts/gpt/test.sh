@@ -1,10 +1,5 @@
-#!/bin/bash
-
-source /pscratch/sd/k/klhhhhh/envs/nemo/bin/activate
-bash /global/homes/k/klhhhhh/NeMo-modular-training/modular-training/scripts/gpt/export_package.sh
-
 torchrun \
-    --nnodes=8 \
+    --nnodes=2 \
     --nproc_per_node=4 \
     --rdzv_id=gpt_124m \
     --rdzv_backend=c10d \
@@ -13,7 +8,7 @@ torchrun \
     --config-path=/global/homes/k/klhhhhh/NeMo-modular-training/examples/nlp/language_modeling/conf \
     --config-name=megatron_gpt_config \
     trainer.devices=4 \
-    trainer.num_nodes=8 \
+    trainer.num_nodes=2 \
     trainer.max_epochs=null \
     trainer.max_steps=300000 \
     trainer.val_check_interval=300 \
@@ -26,8 +21,8 @@ torchrun \
     model.megatron_amp_O2=False \
     model.micro_batch_size=48 \
     model.global_batch_size=192 \
-    model.tensor_model_parallel_size=4 \
-    model.pipeline_model_parallel_size=2 \
+    model.tensor_model_parallel_size=2 \
+    model.pipeline_model_parallel_size=1 \
     model.max_position_embeddings=1024 \
     model.encoder_seq_length=1024 \
     model.hidden_size=768 \
