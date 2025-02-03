@@ -6,6 +6,8 @@ bash /global/homes/k/klhhhhh/NeMo-modular-training/modular-training/scripts/gpt/
 torchrun \
     --nnodes=8 \
     --nproc_per_node=4 \
+    --master_addr $MASTER_ADDR \
+    --master_port $MASTER_PORT \
     --rdzv_id=gpt_124m \
     --rdzv_backend=c10d \
     --rdzv_endpoint=$MASTER_ADDR:$MASTER_PORT \
@@ -16,7 +18,7 @@ torchrun \
     trainer.num_nodes=8 \
     trainer.max_epochs=null \
     trainer.max_steps=300000 \
-    trainer.val_check_interval=300 \
+    trainer.val_check_interval=3000 \
     trainer.log_every_n_steps=25 \
     trainer.limit_val_batches=50 \
     trainer.limit_test_batches=50 \
