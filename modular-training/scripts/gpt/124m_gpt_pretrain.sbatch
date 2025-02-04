@@ -4,9 +4,10 @@
 #SBATCH -q regular
 #SBATCH -t 48:00:00
 #SBATCH --nodes=8
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:4
-#SBATCH --gpus-per-task=1
+#SBATCH --gpus-per-task=4
+#SBATCH --gpu-bind=none
 #SBATCH -c 8
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=nankaicslk@gmail.com
@@ -41,6 +42,13 @@ export NVIDIA_PYTORCH_VERSION=24.12
 
 srun --ntasks=$SLURM_NTASKS hostname
 sleep 5
+
+# nccl
+export NCCL_DEBUG=INFO
+export NCCL_IB_DISABLE=1
+export NCCL_SOCKET_IFNAME=^docker0,lo
+export CUDA_LAUNCH_BLOCKING=1
+export NCCL_ASYNC_ERROR_HANDLING=1
 
 srun --export=ALL,MASTER_ADDR=$MASTER_ADDR,MASTER_PORT=$MASTER_PORT,NVIDIA_PYTORCH_VERSION=$NVIDIA_PYTORCH_VERSION \
      bash /global/homes/k/klhhhhh/NeMo-modular-training/modular-training/scripts/gpt/124m_gpt_pretrain.sh
