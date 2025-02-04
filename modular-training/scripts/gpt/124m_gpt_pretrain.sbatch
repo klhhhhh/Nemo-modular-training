@@ -3,10 +3,12 @@
 #SBATCH -C gpu
 #SBATCH -q regular
 #SBATCH -t 48:00:00
-#SBATCH -N 8
+#SBATCH --nodes=8
 #SBATCH --ntasks-per-node=4
-#SBATCH -c 2
+#SBATCH --gres=gpu:4
 #SBATCH --gpus-per-task=1
+#SBATCH --gpu-bind=none
+#SBATCH -c 8
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=nankaicslk@gmail.com
 
