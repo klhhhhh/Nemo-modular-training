@@ -14,7 +14,7 @@ torchrun \
     /global/homes/k/klhhhhh/NeMo-modular-training/examples/nlp/language_modeling/megatron_gpt_pretraining.py  \
     --config-path=/global/homes/k/klhhhhh/NeMo-modular-training/examples/nlp/language_modeling/conf \
     --config-name=megatron_gpt_config \
-    trainer.devices=all \
+    trainer.devices=4 \
     trainer.num_nodes=8 \
     trainer.max_epochs=null \
     trainer.max_steps=300000 \

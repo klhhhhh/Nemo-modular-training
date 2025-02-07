@@ -4,8 +4,10 @@ source /pscratch/sd/k/klhhhhh/envs/nemo/bin/activate
 bash /global/homes/k/klhhhhh/NeMo-modular-training/modular-training/scripts/gpt/export_package.sh
 
 torchrun \
-    --nnodes=8 \
+    --nnodes=16 \
     --nproc_per_node=4 \
+    --master_addr $MASTER_ADDR \
+    --master_port $MASTER_PORT \
     --rdzv_id=gpt_350m \
     --rdzv_backend=c10d \
     --rdzv_endpoint=$MASTER_ADDR:$MASTER_PORT \
@@ -20,11 +22,11 @@ torchrun \
     trainer.log_every_n_steps=25 \
     trainer.limit_val_batches=50 \
     trainer.limit_test_batches=50 \
-    trainer.accumulate_grad_batches=4 \
+    trainer.accumulate_grad_batches=1 \
     trainer.precision=16 \
     model.transformer_engine=True \
     model.megatron_amp_O2=False \
-    model.micro_batch_size=16 \
+    model.micro_batch_size=64 \
     model.global_batch_size=256 \
     model.tensor_model_parallel_size=4 \
     model.pipeline_model_parallel_size=4 \
@@ -56,6 +58,6 @@ torchrun \
     exp_manager.create_checkpoint_callback=True \
     exp_manager.checkpoint_callback_params.dirpath=/pscratch/sd/k/klhhhhh/checkpoints/nemo/gpt_350m \
     exp_manager.checkpoint_callback_params.monitor=val_loss \
-    exp_manager.checkpoint_callback_params.save_top_k=3 \
+    exp_manager.checkpoint_callback_params.save_top_k=5 \
     exp_manager.checkpoint_callback_params.mode=min \
     exp_manager.checkpoint_callback_params.always_save_nemo=True
